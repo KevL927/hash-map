@@ -1,5 +1,3 @@
-//Write a hash map implementation which uses separate chaining.
-
 var createHashMap = function (initialCapacity) {
   var length = 0,
       privateSlots = [],
@@ -26,6 +24,7 @@ var createHashMap = function (initialCapacity) {
     privateSlots[index] = {
       key: key,
       value: value,
+      next: null,
       deleted: false
     };
     length++;
@@ -53,15 +52,18 @@ var createHashMap = function (initialCapacity) {
 
   var privateFindSlot = function(key) {
     var hash = privateHashString(key);
-    var start = hash % privateCapacity;
-
-    for (var i = start; i < start + privateCapacity; i++) {
-      var index = i % privateCapacity;
-      var slot = privateSlots[index];
-      if (slot === undefined || slot.key == key && !slot.deleted) {
+    var index = hash % privateCapacity;
+    var slot = privateSlots[index];
+    if (slot === undefined || slot.key == key && !slot.deleted) {
         return index;
       }
-    }
+      else{
+        while(slot.next != null){
+          slot = slot.next;
+        }
+        
+      }
+    
     // Unreachable
   };
 
@@ -83,11 +85,17 @@ var createHashMap = function (initialCapacity) {
   return {
     get: get,
     set: set,
-    remove: remove
+    remove: remove,
+    fetchPrivate: function() {return privateSlots}
   }
 
 };
 
 var hashMap = createHashMap();
 hashMap.set('surbhi','surbhi@gmail.com');
-console.log(hashMap.get('surbhi'));
+hashMap.set('surbhi1','surbhi1@gmail.com');
+hashMap.set('surbhi2','surbhi2@gmail.com');
+hashMap.set('surbhi3','surbhi3@gmail.com');
+hashMap.set('surbhi4','surbhi4@gmail.com');
+hashMap.set('surbhi5','surbhi5@gmail.com');
+console.log(hashMap.fetchPrivate());

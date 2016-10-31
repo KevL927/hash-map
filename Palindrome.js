@@ -95,11 +95,11 @@ var isPalindrome = function(string) {
   var oddCounter = 0;
   for(var i = 0; i < string.length; i++) {
     if(hashMap.get(string[i]) !== undefined) {
-      hashMap.set(string[i], hashMap.set(string[i] + 1) & 1);
+      hashMap.set(string[i], hashMap.get(string[i] + 1) & 1);
     } else {
       hashMap.set(string[i], 1);
     }
-    console.log(hashMap.fetchPrivate());
+    
   }
   for(var i = 0; i < string.length; i++) {
     if(hashMap.get(string[i]) === 1) {
@@ -116,4 +116,4 @@ var isPalindrome = function(string) {
 
 // {a:1, m:2}
 
-console.log(isPalindrome('madam'));
+console.log(isPalindrome('aaxxiirs'));
